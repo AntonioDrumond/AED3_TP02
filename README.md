@@ -56,11 +56,11 @@ O resultado é um sistema mais robusto e completo, que modela de forma mais real
 
 - [x] É posssível consultar quais são as séries de um ator? **SIM**.
 
-- [x] A remoção de séries remove os seus vínculos de atores? **SIM**. 
-	Assim como fizemos com episódio do TP01, não é permitido excluir uma série (ou alterar o nome) de uma série que possua atores linkados à ela. Para conveniência do usuário, adicionamos uma opção no MenuAtores de excluir todos os atores ligados à determinada série de uma vez. Assim, o usuário deve realizar essa ação de deletar todos os atores que trabalham na série para ser capaz de excluir a série.
+- [x] A remoção de séries remove os seus vínculos de atores? **SIM**.
+	- Assim como fizemos com episódio do TP01, não é permitido excluir uma série (ou alterar o nome) de uma série que possua atores linkados à ela. Para conveniência do usuário, adicionamos uma opção no MenuAtores de excluir todos os atores ligados à determinada série de uma vez. Assim, o usuário deve realizar essa ação de deletar todos os atores que trabalham na série para ser capaz de excluir a série.
 
 - [x] A inclusão de um ator em uma série em um episódio se limita aos atores existentes? 
-	A remoção de um ator checa se há alguma série vinculado a ele? Como optamos por não fazer uma classe "Atuação", mas sim ligar diretamente a entidade "Ator" à entidade "Série" correspondente logo no seu momento de criação (inserção de novo ator), cada ator já "nasce" obrigatoriamente vinculado a uma série (e, por outro lado, nunca existirá um ator sem série pois não permitimos a exclusão de uma série com atores vinculados a ela).
+	- A remoção de um ator checa se há alguma série vinculado a ele? Como optamos por não fazer uma classe "Atuação", mas sim ligar diretamente a entidade "Ator" à entidade "Série" correspondente logo no seu momento de criação (inserção de novo ator), cada ator já "nasce" obrigatoriamente vinculado a uma série (e, por outro lado, nunca existirá um ator sem série pois não permitimos a exclusão de uma série com atores vinculados a ela).
 
 - [x] O trabalho está funcionando corretamente? **SIM**
 
