@@ -430,17 +430,30 @@ public class MenuSeries
             if (serie != null) 
 			{
                 System.out.println ("Serie encontrada:");
-                mostraSerie(serie);  // Exibe os dados do serie para confirmacao
+                mostraSerie(serie);  //exibe os dados do serie para confirmacao
 
-                // NOVO PASSO: Checar se ha episodios vinculados a essa serie
+                //checar se ha episodios vinculados a essa serie
                 Episodio[] epVinculados = arqEpisodios.readPorSerie(serie.getID());
 
-                if (epVinculados != null && epVinculados.length > 0) {
+                //NOVO PASSO: Checar se ha atores vinculados a essa serie
+                Ator[] atoresVinculados = arqAtores.readPorSerie(serie.getID());
 
-                    System.out.println("Nao e possivel alterar o nome da serie pois existem episodios ligado a ela.");
+                if ((epVinculados != null && epVinculados.length > 0) || (atoresVinculados != null && atoresVinculados.length > 0)) {
+
+                    // Se houver episodios ou atores vinculados, nao permitir a exclusao
+                    if (epVinculados != null && epVinculados.length > 0) {
+                        System.out.println("Nao e possivel alterar o nome da serie pois existem episodios ligados a ela.");
+                        System.out.println("Exclua primeiro todos os episodios dessa serie no menu EPISODIOS.");
+                    }
+                    
+                    if (atoresVinculados != null && atoresVinculados.length > 0) {
+                        System.out.println("Nao e possivel alterar o nome da serie pois existem atores ligados a ela.");
+                        System.out.println("Exclua primeiro todos os atores dessa serie no menu ATORES.");
+                    }
 
                 }else{
-                    // Alteracao de nome
+
+                    //Alteracao de nome
                     System.out.print("\nNovo nome (deixe em branco para manter o anterior): ");
                     String novoNome = console.nextLine();
 
@@ -560,12 +573,25 @@ public class MenuSeries
 
             Serie serie = s[0];
 
-            // NOVO PASSO: Checar se ha episodios vinculados a essa serie
+            //Checar se ha episodios vinculados a essa serie
             Episodio[] epVinculados = arqEpisodios.readPorSerie(serie.getID());
 
-            if (epVinculados != null && epVinculados.length > 0) {
-                System.out.println("Nao e possivel excluir a serie pois existem episodios ligados a ela.");
-                System.out.println("Exclua primeiro todos os episodios dessa serie no menu EPISODIOS.");
+            //NOVO PASSO: Checar se ha atores vinculados a essa serie
+            Ator[] atoresVinculados = arqAtores.readPorSerie(serie.getID());
+
+            if ((epVinculados != null && epVinculados.length > 0) || (atoresVinculados != null && atoresVinculados.length > 0)) {
+
+                // Se houver episodios ou atores vinculados, nao permitir a exclusao
+                if (epVinculados != null && epVinculados.length > 0) {
+                    System.out.println("Nao e possivel excluir a serie pois existem episodios ligados a ela.");
+                    System.out.println("Exclua primeiro todos os episodios dessa serie no menu EPISODIOS.");
+                }
+
+                if (atoresVinculados != null && atoresVinculados.length > 0) {
+                    System.out.println("Nao e possivel excluir a serie pois existem atores ligados a ela.");
+                    System.out.println("Exclua primeiro todos os atores dessa serie no menu ATORES.");
+                }
+                
                 return;
             }
 
