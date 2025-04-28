@@ -5,7 +5,7 @@
  - Antônio Drumond Cota de Sousa
  - Laura Menezes Heráclito Alves
  - Davi Ferreira Puddo
- - Raquel de Parde Motta]
+ - Raquel de Parde Motta
    
 ## Links dos trabalhos anteriores
 - [TP1](https://github.com/AntonioDrumond/AED3_TP01/)
@@ -31,8 +31,6 @@ A separação clara entre Modelo, Visão e Controle novamente facilitou o desenv
 O principal desafio técnico deste trabalho foi a correta implementação e gerenciamento do relacionamento N:N utilizando duas Árvores B+. Garantir que ambas as árvores fossem atualizadas atomicamente (ou pelo menos consistentemente) em todas as operações de vínculo e desvínculo foi complexo. Por exemplo, ao associar um ator a uma série, era necessário inserir o par (idSerie, idAtor) na primeira árvore e o par (idAtor, idSerie) na segunda. Da mesma forma, a exclusão de uma série exigia a remoção de todas as entradas correspondentes em ambas as árvores.
 
 Outro desafio foi a implementação das regras de integridade referencial de forma eficiente. A verificação que impede a exclusão de um ator caso ele esteja vinculado a alguma série exigiu uma consulta em uma das Árvores B+ ((idAtor, idSerie)) antes de permitir a operação de exclusão do ator. Implementar essa lógica de forma integrada ao fluxo do CRUD de Atores exigiu atenção aos detalhes.
-
-A integração da funcionalidade de vinculação de atores dentro do fluxo de gerenciamento de Séries também apresentou desafios de design de interface e lógica de controle. Decidir a melhor forma de apresentar e coletar a informação sobre o elenco (se durante a criação/edição da série ou em uma opção separada) envolveu considerações sobre usabilidade e complexidade de implementação. Depurar problemas que envolviam a sincronia entre as duas árvores e os dados principais das Séries e Atores também consumiu tempo, exigindo testes cuidadosos para cada cenário de CRUD e vinculação.
 
 ## Resultados
 
