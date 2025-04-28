@@ -32,8 +32,6 @@ O principal desafio técnico deste trabalho foi a correta implementação e gere
 
 Outro desafio foi a implementação das regras de integridade referencial de forma eficiente. A verificação que impede a exclusão de um ator caso ele esteja vinculado a alguma série exigiu uma consulta em uma das Árvores B+ ((idAtor, idSerie)) antes de permitir a operação de exclusão do ator. Implementar essa lógica de forma integrada ao fluxo do CRUD de Atores exigiu atenção aos detalhes.
 
-A integração da funcionalidade de vinculação de atores dentro do fluxo de gerenciamento de Séries também apresentou desafios de design de interface e lógica de controle. Decidir a melhor forma de apresentar e coletar a informação sobre o elenco (se durante a criação/edição da série ou em uma opção separada) envolveu considerações sobre usabilidade e complexidade de implementação. Depurar problemas que envolviam a sincronia entre as duas árvores e os dados principais das Séries e Atores também consumiu tempo, exigindo testes cuidadosos para cada cenário de CRUD e vinculação.
-
 ## Resultados
 
 Conseguimos implementar com sucesso todas as funcionalidades requeridas para este trabalho prático. O sistema PUCFlix agora gerencia não apenas Séries e Episódios, mas também Atores, e implementa corretamente o relacionamento N:N entre Séries e Atores. As principais funcionalidades entregues incluem:
