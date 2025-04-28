@@ -29,8 +29,8 @@ public class ParNomeId implements RegistroArvoreBMais<ParNomeId> {
 
   private String nome;
   private int id;
-  private short TAMANHO = 34;
-  private short TAMANHO_NOME = 30;
+  private short TAMANHO = 64;
+  private short TAMANHO_NOME = 60;
 
   public ParNomeId() throws Exception {
     this("", -1);

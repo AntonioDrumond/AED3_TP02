@@ -139,13 +139,24 @@ public class MenuEpisodios {
         } while(sa==null);
 
         do {
+
             System.out.print("\nNome do episodio (min. de 1 letras ou vazio para cancelar): ");
+
             nome = console.nextLine();
-            if(nome.length()==0)
+
+            if(nome.length()==0){
                 return;
-            if(nome.length()<1)
+            }
+            
+            if(nome.length()<1){
                 System.err.println("O nome do episodio deve ter no mínimo 1 caracteres.");
-        } while(nome.length()<1);
+            }
+
+            if (nome.length()>50){
+                System.err.println("O nome do episodio deve ter no máximo 50 caracteres.");
+            }
+
+        } while(nome.length()<1 || nome.length()>50);
 
         do{
             System.out.print("Temporada: (Numero inteiro positivo): ");
@@ -360,7 +371,7 @@ public class MenuEpisodios {
     }
 
     public void excluirEpisodiosPorSerie() {
-        System.out.print("Digite o nome da série para excluir todos os episódios: ");
+        System.out.print("Digite o nome da serie para excluir todos os episódios: ");
         String nomeSerie = console.nextLine();
     
         try {
@@ -368,16 +379,16 @@ public class MenuEpisodios {
             Serie[] series = arqSeries.readNome(nomeSerie);
     
             if (series == null || series.length == 0) {
-                System.out.println("Série não encontrada.");
+                System.out.println("Serie não encontrada.");
                 return;
             }
     
             Serie serie = series[0]; // Assuming the first match is the desired series
-            System.out.println("Série encontrada:");
+            System.out.println("Serie encontrada:");
             System.out.printf("Nome: %s\n", serie.getNome());
     
             // Confirm deletion
-            System.out.print("\nConfirma a exclusão de todos os episódios da série? (S/N) ");
+            System.out.print("\nConfirma a exclusao de todos os episodios da serie? (S/N) ");
             char resp = console.nextLine().charAt(0);
     
             if (resp == 'S' || resp == 's') {
@@ -393,7 +404,7 @@ public class MenuEpisodios {
     
                     for (Episodio episodio : episodios) {
                         try {
-                            System.out.printf("Tentando excluir o episódio '%s'...\n", episodio.getNome());
+                            System.out.printf("Tentando excluir o episodio '%s'...\n", episodio.getNome());
                             boolean excluido = arqEpisodios.delete(episodio.getID());
                             if (excluido) {
                                 System.out.printf("Episódio '%s' excluído com sucesso.\n", episodio.getNome());
