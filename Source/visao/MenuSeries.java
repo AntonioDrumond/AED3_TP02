@@ -40,6 +40,7 @@ public class MenuSeries
             System.out.println("5 - Listar todos episodios da serie");
             System.out.println("6 - Listar episodios por temporada");
             System.out.println("7 - Listar todas as series cadastradas");
+            System.out.println("8 - Listar todos os atores de uma serie");
             System.out.println("0 - Voltar");
 
             System.out.print("\nOpcao: ");
