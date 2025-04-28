@@ -80,7 +80,7 @@ public class MenuSeries
                 case 0:
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("Opcao invalida!");
                     break;
             }
 
@@ -93,11 +93,11 @@ public class MenuSeries
         String nome;
 
 		System.out.print("\nNome: ");
-		nome = console.nextLine();  // Lê o Nome digitado pelo usuário
+		nome = console.nextLine();  // Lê o Nome digitado pelo usuario
 
         try 
 		{
-            Serie[] series = arqSeries.readNome(nome);  // Chama o método de leitura da classe Arquivo
+            Serie[] series = arqSeries.readNome(nome);  // Chama o metodo de leitura da classe Arquivo
             
             if (series != null && series.length > 0) {
 
@@ -107,13 +107,13 @@ public class MenuSeries
 
             } else {
 
-                System.out.println("Serie não encontrada.");
+                System.out.println("Serie nao encontrada.");
 
             }
         } 
 		catch (Exception e) 
 		{
-            System.out.println ("Erro do sistema. Não foi possível buscar o serie!");
+            System.out.println ("Erro do sistema. Nao foi possivel buscar o serie!");
             e.printStackTrace();
         }
     }
@@ -124,7 +124,7 @@ public class MenuSeries
         String nome;
 
 		System.out.print("\nNome da serie: ");
-		nome = console.nextLine();  // Lê o Nome digitado pelo usuário
+		nome = console.nextLine();  // Lê o Nome digitado pelo usuario
 
         try {
 
@@ -132,7 +132,7 @@ public class MenuSeries
 
             if (series == null || series.length == 0) {
 
-                System.out.println("Serie não encontrada.");
+                System.out.println("Serie nao encontrada.");
 
             }
 
@@ -145,28 +145,28 @@ public class MenuSeries
             Episodio[] episodios = arqEpisodios.readPorSerie(idSerie);
     
             if (episodios == null || episodios.length == 0) {
-                System.out.println("Nenhum episódio encontrado para esta série.");
+                System.out.println("Nenhum episodio encontrado para esta serie.");
                 return;
             }
     
-            System.out.println("\nEpisódios da série:");
+            System.out.println("\nEpisodios da serie:");
             for (Episodio episodio : episodios) {
                 System.out.println("----------------------------");
                 System.out.println("Nome: " + episodio.getNome());
                 System.out.println("Temporada: " + episodio.getTemporada());
-                System.out.println("Duração: " + episodio.getDuracao() + " minutos");
-                System.out.println("Data de Lançamento: " + episodio.getLancamento());
+                System.out.println("Duracao: " + episodio.getDuracao() + " minutos");
+                System.out.println("Data de Lancamento: " + episodio.getLancamento());
             }
 
         } catch (Exception e) {
-            System.out.println("Erro ao listar episódios da série!");
+            System.out.println("Erro ao listar episodios da serie!");
             e.printStackTrace();
         }
     }
 
     public void listarEpisodiosPorTemporada() {
 
-        System.out.println("\nListagem de episódios por temporada");
+        System.out.println("\nListagem de episodios por temporada");
         String nomeSerie;
     
         // Ask the user for the series name
@@ -178,12 +178,12 @@ public class MenuSeries
             Serie[] series = arqSeries.readNome(nomeSerie);
     
             if (series == null || series.length == 0) {
-                System.out.println("Série não encontrada.");
+                System.out.println("Serie nao encontrada.");
                 return;
             }
     
             Serie serie = series[0]; // Assuming the first match is the desired series
-            System.out.println("Série encontrada:");
+            System.out.println("Serie encontrada:");
             mostraSerie(serie);
     
             // Ask the user for the desired season
@@ -194,30 +194,30 @@ public class MenuSeries
             Episodio[] episodios = arqEpisodios.readPorSerie(serie.getID());
     
             if (episodios == null || episodios.length == 0) {
-                System.out.println("Nenhum episódio encontrado para esta série.");
+                System.out.println("Nenhum episodio encontrado para esta serie.");
                 return;
             }
     
             // Filter episodes by the desired season
-            System.out.println("\nEpisódios da temporada " + temporadaDesejada + ":");
+            System.out.println("\nEpisodios da temporada " + temporadaDesejada + ":");
             boolean encontrouEpisodios = false;
             for (Episodio episodio : episodios) {
                 if (episodio.getTemporada() == temporadaDesejada) {
                     System.out.println("----------------------------");
                     System.out.println("Nome: " + episodio.getNome());
                     System.out.println("Temporada: " + episodio.getTemporada());
-                    System.out.println("Duração: " + episodio.getDuracao() + " minutos");
-                    System.out.println("Data de Lançamento: " + episodio.getLancamento());
+                    System.out.println("Duracao: " + episodio.getDuracao() + " minutos");
+                    System.out.println("Data de Lancamento: " + episodio.getLancamento());
                     encontrouEpisodios = true;
                 }
             }
     
             if (!encontrouEpisodios) {
-                System.out.println("Nenhum episódio encontrado para a temporada " + temporadaDesejada + ".");
+                System.out.println("Nenhum episodio encontrado para a temporada " + temporadaDesejada + ".");
             }
     
         } catch (Exception e) {
-            System.out.println("Erro ao listar episódios da temporada!");
+            System.out.println("Erro ao listar episodios da temporada!");
             e.printStackTrace();
         }
     }
@@ -231,7 +231,7 @@ public class MenuSeries
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        System.out.println("\nInclusão de serie");
+        System.out.println("\nInclusao de serie");
 		
 		// Ler nome
         do {
@@ -241,7 +241,7 @@ public class MenuSeries
                 return;
             }
             if (nome.length() < 3) {
-                System.err.println("O nome da serie deve ter no mínimo 3 caracteres.");
+                System.err.println("O nome da serie deve ter no minimo 3 caracteres.");
             }
         } while (nome.length() < 3);
 
@@ -251,7 +251,7 @@ public class MenuSeries
             Serie[] series = arqSeries.readNome(nome); 
 
             if (series != null && series.length > 0) {
-                System.err.println("Uma serie com esse nome já existe");
+                System.err.println("Uma serie com esse nome ja existe");
                 return;
             }
             else
@@ -259,12 +259,12 @@ public class MenuSeries
                 // Ler sinopse
                 do 
                 {
-                    System.out.print("Sinopse (no mínimo 10 dígitos): ");
+                    System.out.print("Sinopse (no minimo 10 digitos): ");
     
                     sinopse = console.nextLine();
                     if (sinopse.length() < 10)
                     {
-                        System.err.println ("A sinopse deve ter no mínimo 10 dígitos.");
+                        System.err.println ("A sinopse deve ter no minimo 10 digitos.");
                     }
     
                 } while (sinopse.length() < 10);
@@ -272,13 +272,13 @@ public class MenuSeries
                 // Ler streaming
                 do 
                 {
-                    System.out.print("Streaming: (no mínimo 3 dígitos): ");
+                    System.out.print("Streaming: (no minimo 3 digitos): ");
 
                     streaming = console.nextLine();
 
                     if (streaming.length() < 3)
                     {
-                        System.err.println ("O streaming deve ter no mínimo 3 dígitos.");
+                        System.err.println ("O streaming deve ter no minimo 3 digitos.");
                     }
                     
     
@@ -298,13 +298,13 @@ public class MenuSeries
                     } 
                     catch (Exception e) 
                     {
-                        System.err.println ("Data inválida! Use o formato DD/MM/AAAA.");
+                        System.err.println ("Data invalida! Use o formato DD/MM/AAAA.");
                     }
     
                 } while (!dadosCorretos);
     
-                // Confirmar inclusão
-                System.out.print("\nConfirma a inclusão da serie? (S/N) ");
+                // Confirmar inclusao
+                System.out.print("\nConfirma a inclusao da serie? (S/N) ");
     
                 char resp = console.nextLine().charAt(0);
     
@@ -314,17 +314,17 @@ public class MenuSeries
                     {
                         Serie s = new Serie (nome, dataLancamento, sinopse, streaming);
                         arqSeries.create (s);
-                        System.out.println ("Serie incluída com sucesso.");
+                        System.out.println ("Serie incluida com sucesso.");
                     } 
                     catch (Exception e) 
                     {
-                        System.out.println("Erro do sistema. Não foi possível incluir a serie!");
+                        System.out.println("Erro do sistema. Nao foi possivel incluir a serie!");
                     }
                 }
             }
 
         } catch (Exception e) {
-            System.out.println("Erro do sistema. Não foi possível buscar a serie!");
+            System.out.println("Erro do sistema. Nao foi possivel buscar a serie!");
             e.printStackTrace();
         }
 
@@ -339,22 +339,22 @@ public class MenuSeries
 
         do 
 		{
-            System.out.print("\nNome (3 dígitos): ");
-            nome = console.nextLine();  // Lê o nome digitado pelo usuário
+            System.out.print("\nNome (3 digitos): ");
+            nome = console.nextLine();  // Lê o nome digitado pelo usuario
 
             if (nome.isEmpty())
 			{
                 return; 
 			}
 
-            // Validação do nome
+            // Validacao do nome
             if (nome.length() > 2) 
 			{
-                nomeValido = true;  // Nome válido
+                nomeValido = true;  // Nome valido
             } 
 			else 
 			{
-                System.out.println("Nome inválido. O nome deve conter no mínimo 3 dígitos.");
+                System.out.println("Nome invalido. O nome deve conter no minimo 3 digitos.");
             }
 
         } while (!nomeValido);
@@ -373,28 +373,28 @@ public class MenuSeries
             if (serie != null) 
 			{
                 System.out.println ("Serie encontrada:");
-                mostraSerie(serie);  // Exibe os dados do serie para confirmação
+                mostraSerie(serie);  // Exibe os dados do serie para confirmacao
 
-                // NOVO PASSO: Checar se há episódios vinculados a essa série
+                // NOVO PASSO: Checar se ha episodios vinculados a essa serie
                 Episodio[] epVinculados = arqEpisodios.readPorSerie(serie.getID());
 
                 if (epVinculados != null && epVinculados.length > 0) {
 
-                    System.out.println("Não é possível alterar o nome da série pois existem episódios ligado a ela.");
+                    System.out.println("Nao e possivel alterar o nome da serie pois existem episodios ligado a ela.");
 
                 }else{
-                    // Alteração de nome
+                    // Alteracao de nome
                     System.out.print("\nNovo nome (deixe em branco para manter o anterior): ");
                     String novoNome = console.nextLine();
 
-                    //NOVO PASSO: Checar se o novo nome já está registrado
+                    //NOVO PASSO: Checar se o novo nome ja está registrado
                     if (!novoNome.isEmpty()) 
                     {
-                        // Verificar se o novo nome já está registrado
+                        // Verificar se o novo nome ja está registrado
                         Serie[] seriesComMesmoNome = arqSeries.readNome(novoNome);
                         if (seriesComMesmoNome != null && seriesComMesmoNome.length > 0) 
                         {
-                            System.out.println("Erro: Já existe uma série registrada com este nome.");
+                            System.out.println("Erro: Ja existe uma serie registrada com este nome.");
                             return;
                         }
 
@@ -402,7 +402,7 @@ public class MenuSeries
                     }
                 }
 
-                // Alteração de sinopse
+                // Alteracao de sinopse
                 System.out.print("Nova sinopse (deixe em branco para manter o anterior): ");
                 String novaSinopse = console.nextLine();
 
@@ -419,7 +419,7 @@ public class MenuSeries
                     serie.setStreaming(novoStreaming);
                 }
 
-                // Alteração de data de lancamento
+                // Alteracao de data de lancamento
                 System.out.print("Nova data de lancamento (DD/MM/AAAA) (deixe em branco para manter a anterior): ");
                 String novaDataLancamento = console.nextLine();
 
@@ -432,18 +432,18 @@ public class MenuSeries
                     } 
 					catch (Exception e) 
 					{
-                        System.err.println("Data inválida. Valor mantido.");
+                        System.err.println("Data invalida. Valor mantido.");
                     }
                 }
 
-                // Confirmação da alteração
-                System.out.print("\nConfirma as alterações? (S/N) ");
+                // Confirmacao da alteracao
+                System.out.print("\nConfirma as alteracoes? (S/N) ");
                 
                 char resp = console.nextLine().charAt(0);
 
                 if (resp == 'S' || resp == 's') 
 				{
-                    // Salva as alterações no arquivo
+                    // Salva as alteracoes no arquivo
                     //System.out.println("Attempting to update the series...");
                     boolean alterado = arqSeries.update(serie);
                     //System.out.println("Update completed.");
@@ -459,29 +459,29 @@ public class MenuSeries
                 } 
 				else 
 				{
-                    System.out.println("Alterações canceladas.");
+                    System.out.println("Alteracoes canceladas.");
                 }
             } 
 			else 
 			{
-                System.out.println("Serie não encontrada.");
+                System.out.println("Serie nao encontrada.");
             }
 
         } 
 		catch (Exception e) 
 		{
-            System.out.println("Erro do sistema. Não foi possível alterar o serie!");
+            System.out.println("Erro do sistema. Nao foi possivel alterar o serie!");
             e.printStackTrace();
         }
     }
 
     public void excluirSerie() {
-        System.out.println("\nExclusão de serie");
+        System.out.println("\nExclusao de serie");
         String nome;
         boolean nomeValido = false;
 
         do {
-            System.out.print("\nNome (3 dígitos): ");
+            System.out.print("\nNome (3 digitos): ");
             nome = console.nextLine();
             if (nome.isEmpty()) {
                 return;
@@ -489,7 +489,7 @@ public class MenuSeries
             if (nome.length() > 2) {
                 nomeValido = true;
             } else {
-                System.out.println("Nome inválido. O nome deve conter no mínimo 3 dígitos.");
+                System.out.println("Nome invalido. O nome deve conter no minimo 3 digitos.");
             }
         } while (!nomeValido);
 
@@ -497,41 +497,41 @@ public class MenuSeries
             // Tenta ler a serie com o nome fornecido
             Serie[] s = arqSeries.readNome(nome);
             if (s == null || s.length == 0) {
-                System.out.println("Serie não encontrada.");
+                System.out.println("Serie nao encontrada.");
                 return;
             }
 
             Serie serie = s[0];
 
-            // NOVO PASSO: Checar se há episódios vinculados a essa série
+            // NOVO PASSO: Checar se ha episodios vinculados a essa serie
             Episodio[] epVinculados = arqEpisodios.readPorSerie(serie.getID());
 
             if (epVinculados != null && epVinculados.length > 0) {
-                System.out.println("Não é possível excluir a série pois existem episódios ligados a ela.");
-                System.out.println("Exclua primeiro todos os episódios dessa série no menu EPISODIOS.");
+                System.out.println("Nao e possivel excluir a serie pois existem episodios ligados a ela.");
+                System.out.println("Exclua primeiro todos os episodios dessa serie no menu EPISODIOS.");
                 return;
             }
 
             System.out.println("Serie encontrada:");
             mostraSerie(serie);
 
-            System.out.print("\nConfirma a exclusão do serie? (S/N) ");
+            System.out.print("\nConfirma a exclusao da serie? (S/N) ");
 
             char resp = console.nextLine().charAt(0);
 
             if (resp == 'S' || resp == 's') {
                 boolean excluido = arqSeries.delete(serie.getID());
                 if (excluido) {
-                    System.out.println("Serie excluída com sucesso.");
+                    System.out.println("Serie excluida com sucesso.");
                 } else {
                     System.out.println("Erro ao excluir a serie.");
                 }
             } else {
-                System.out.println("Exclusão cancelada.");
+                System.out.println("Exclusao cancelada.");
             }
 
         } catch (Exception e) {
-            System.out.println("Erro do sistema. Não foi possível excluir o serie!");
+            System.out.println("Erro do sistema. Nao foi possivel excluir o serie!");
             e.printStackTrace();
         }
     }
@@ -552,14 +552,14 @@ public class MenuSeries
     }
 
     public void listarTodasSeries() {
-        System.out.println("\nListagem de todas as séries:");
+        System.out.println("\nListagem de todas as series:");
 
         try {
             // Use the generic readAll method to get all series
             List<Serie> series = arqSeries.readAll();
 
             if (series.isEmpty()) {
-                System.out.println("Nenhuma série encontrada.");
+                System.out.println("Nenhuma serie encontrada.");
                 return;
             }
 
@@ -567,7 +567,7 @@ public class MenuSeries
                 mostraSerie(serie); // Display each series
             }
         } catch (Exception e) {
-            System.out.println("Erro ao listar todas as séries!");
+            System.out.println("Erro ao listar todas as series!");
             e.printStackTrace();
         }
     }
