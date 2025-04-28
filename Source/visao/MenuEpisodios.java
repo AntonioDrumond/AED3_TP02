@@ -108,7 +108,7 @@ public class MenuEpisodios {
         int temporada = 0;
         LocalDate lancamento = null;
         int duracao = 0;
-        boolean dadosCorretos = false;
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Serie[] sa = null;
 
@@ -166,18 +166,25 @@ public class MenuEpisodios {
                 System.out.println("O numero da temporada deve ser inteiro e positivo: ");
         }while (temporada<0);
 
-        do {
+        // Ler data de lancamento
+        boolean dadosCorretos = false;
+        do 
+        {
             System.out.print("Data de lancamento (DD/MM/AAAA): ");
             String dataStr = console.nextLine();
-            dadosCorretos = false;
-            try {
+
+            try 
+            {
                 lancamento = LocalDate.parse(dataStr, formatter);
                 dadosCorretos = true;
-            } catch (Exception e) {
-                System.err.println("Data invalida! Use o formato DD/MM/AAAA.");
+            } 
+            catch (Exception e) 
+            {
+                System.err.println ("Data invalida! Use o formato DD/MM/AAAA.");
             }
-        } while(!dadosCorretos);
 
+        } while (!dadosCorretos);
+        
         do{
             System.out.print("Duracao em minutos: (Numero inteiro positivo): ");
             duracao = console.nextInt();
