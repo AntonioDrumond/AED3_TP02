@@ -5,7 +5,7 @@
  - Antônio Drumond Cota de Sousa
  - Laura Menezes Heráclito Alves
  - Davi Ferreira Puddo
- - Raquel de Parde Motta]
+ - Raquel de Parde Motta
    
 ## Links dos trabalhos anteriores
 - [TP1](https://github.com/AntonioDrumond/AED3_TP01/)
