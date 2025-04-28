@@ -7,13 +7,16 @@ import java.util.Scanner;
 
 import entidades.Episodio;
 import entidades.Serie;
+import entidades.Ator;
 import modelo.ArquivoEpisodios;
 import modelo.ArquivoSeries;
+import modelo.ArquivoAtores;
 
 public class MenuSeries 
 {    
     ArquivoSeries arqSeries;
     ArquivoEpisodios arqEpisodios;
+    ArquivoAtores arqAtores;
 
     private static Scanner console = new Scanner (System.in);
 
@@ -23,6 +26,8 @@ public class MenuSeries
 
         //para checar se tem episodios na serie antes de apaga-la
         arqEpisodios = new ArquivoEpisodios();
+
+        arqAtores = new ArquivoAtores();
     }
 
     public void menu() 
@@ -78,6 +83,11 @@ public class MenuSeries
                 case 7:
                     //Listar todas as series cadastradas
                     listarTodasSeries();
+                    break;
+                case 8:
+                    // Listar todos os atores de uma serie
+                    listarAtoresPorSerie();
+                    break;
                 case 0:
                     break;
                 default:
@@ -134,6 +144,7 @@ public class MenuSeries
             if (series == null || series.length == 0) {
 
                 System.out.println("Serie nao encontrada.");
+                return;
 
             }
 
@@ -161,6 +172,51 @@ public class MenuSeries
 
         } catch (Exception e) {
             System.out.println("Erro ao listar episodios da serie!");
+            e.printStackTrace();
+        }
+    }
+
+    public void listarAtoresPorSerie() {
+
+        System.out.println("\nListagem de atores por serie");
+        String nome;
+    
+        System.out.print("\nNome da serie: ");
+        nome = console.nextLine();  // Lê o Nome digitado pelo usuario
+    
+        try {
+    
+            Serie[] series = arqSeries.readNome(nome);
+    
+            if (series == null || series.length == 0) {
+                System.out.println("Serie nao encontrada.");
+                return;
+            }
+    
+            Serie s = series[0]; //assuming the first match is the one we want
+            System.out.println("Serie encontrada:");
+            mostraSerie(s);
+    
+            int idSerie = s.getID();  //get the ID of the found series
+    
+            //use the readPorSerie method to get all actors linked to the series
+            Ator[] atores = arqAtores.readPorSerie(idSerie);
+    
+            if (atores == null || atores.length == 0) {
+                System.out.println("Nenhum ator encontrado para esta serie.");
+                return;
+            }
+    
+            System.out.println("\nAtores da serie:");
+            for (Ator ator : atores) {
+                System.out.println("----------------------------");
+                System.out.println("Nome: " + ator.getNomeAtor());
+                System.out.println("Idade: " + ator.getIdadeAtor());
+                System.out.println("Genero: " + (ator.getGenero() ? "Feminino" : "Masculino"));
+            }
+    
+        } catch (Exception e) {
+            System.out.println("Erro ao listar atores da serie!");
             e.printStackTrace();
         }
     }

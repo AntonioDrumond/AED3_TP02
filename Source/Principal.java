@@ -2,8 +2,8 @@ import visao.*;
 
 import java.util.Scanner;
 
-import entidades.Episodio;
-import entidades.Serie;
+import entidades.*;
+
 import registro.Arquivo;
 
 public class Principal 
@@ -11,13 +11,16 @@ public class Principal
     public static void main(String[] args) 
 	{
         Scanner sc;
-        Arquivo<Serie> arqSeries = null; //!!!
-        Arquivo<Episodio> arqEpisodios = null; //!!!
+        Arquivo<Serie> arqSeries = null; 
+        Arquivo<Episodio> arqEpisodios = null; 
+		Arquivo<Ator> arqAtores = null;
 
         try 
 		{   
-            arqSeries = new Arquivo<>("series", Serie.class.getConstructor());//!!!
+            arqSeries = new Arquivo<>("series", Serie.class.getConstructor());
             arqEpisodios = new Arquivo<>("episodios", Episodio.class.getConstructor());
+            arqAtores = new Arquivo<>("atores", Atores.class.getConstructor());
+
             sc = new Scanner(System.in);
             int opcao;
             do 
@@ -28,7 +31,7 @@ public class Principal
                                "> Inicio\n\n" +
                                "1) Series\n" + 
                                "2) Episodios\n" + 
-                               "3) Atores (nao implementado)\n" + 
+                               "3) Atores\n" + 
                                "0) Sair\n");
 
                 System.out.print("\nOpcao: ");
@@ -46,11 +49,18 @@ public class Principal
                     case 1:
                         new MenuSeries().menu();
                     break;
+
                     case 2:
                         new MenuEpisodios().menu();
                     break;
+
+                    case 3:
+                        new MenuAtores().menu();
+                    break;
+
                     case 0:
                     break;
+
                     default:
                         System.out.println("Opção inválida!");
                     break;
