@@ -73,7 +73,7 @@ public class MenuAtores {
     public void buscarAtor() {
 
         System.out.println("\nBusca de atores");
-        System.out.print("Digite o nome do ator: "); 
+        System.out.print("Digite o nome COMPLETO do ator: "); 
         String nome = console.nextLine(); 
     
         try {
@@ -154,7 +154,7 @@ public class MenuAtores {
 
         do {
 
-            System.out.print("\nNome do ator (min. de 1 letras ou vazio para cancelar): ");
+            System.out.print("\nNome COMPLETO do ator (min. de 1 letras ou vazio para cancelar): ");
 
             nome = console.nextLine();
 
@@ -219,7 +219,7 @@ public class MenuAtores {
     public void alterarAtor() {
 
         System.out.println("\nAlteracao de ator");
-        System.out.print("Digite o nome completo do ator: ");
+        System.out.print("Digite o nome COMPLETO do ator: ");
         String nome = console.nextLine();
         Ator[] aa = null;
     
@@ -251,7 +251,7 @@ public class MenuAtores {
                 mostraAtor(ator); //exibe detalhes do ator escolhido
     
                 //alterar nome
-                System.out.print("\nNovo nome (deixe em branco para manter o anterior): ");
+                System.out.print("\nNovo nome COMPLETO (deixe em branco para manter o anterior): ");
                 String novoNome = console.nextLine();
                 if (!novoNome.isEmpty()) {
                     ator.setNomeAtor(novoNome);
@@ -325,8 +325,8 @@ public class MenuAtores {
 
     public void excluirAtor() {
 
-        System.out.println("\nExclusão de episodio");
-        System.out.print("Digite o nome do episodio: ");
+        System.out.println("\nExclusão de ator");
+        System.out.print("Digite o nome COMPLETO do ator: ");
         String nome = console.nextLine();
         Ator[] aa = null;
     
@@ -417,7 +417,7 @@ public class MenuAtores {
             Serie[] series = arqSeries.readNome(nomeSerie);
     
             if (series == null || series.length == 0) {
-                System.out.println("Série não encontrada.");
+                System.out.println("Serie não encontrada.");
                 return;
             }
     
@@ -426,14 +426,14 @@ public class MenuAtores {
             System.out.printf("Nome da serie: %s\n", serie.getNome());
     
             //confirmar exclusão
-            System.out.print("\nConfirma a exclusao de todos os episodios da serie? (S/N) ");
+            System.out.print("\nConfirma a exclusao de todos os atores da serie? (S/N) ");
             char resp = console.nextLine().charAt(0);
     
             if (resp == 'S' || resp == 's') {
 
                 boolean encontrouErro = false;
     
-                //keep deleting episodes until none are left
+                //keep deleting actors until none are left
                 while (true) {
 
                     Ator[] atores = arqAtores.readPorSerie(serie.getID());
@@ -456,7 +456,7 @@ public class MenuAtores {
                             }
 
                         } catch (Exception e) {
-                            System.out.printf("Erro ao excluir o episodio '%s': %s\n", ator.getNomeAtor(), e.getMessage());
+                            System.out.printf("Erro ao excluir o ator '%s': %s\n", ator.getNomeAtor(), e.getMessage());
                             e.printStackTrace();
                             encontrouErro = true;
                         }
@@ -481,7 +481,7 @@ public class MenuAtores {
     public void listarSeriesDeAtor() {
 
         System.out.println("\nListagem de series por ator");
-        System.out.print("Digite o nome do ator: ");
+        System.out.print("Digite o nome COMPLETO do ator: ");
         String nomeAtor = console.nextLine();
     
         try {
