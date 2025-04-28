@@ -629,7 +629,7 @@ public class MenuSeries
             System.out.printf  ("ID...........: %d\n", serie.getID());
             System.out.printf  ("Streaming....: %s\n", serie.getStreaming());
             System.out.printf  ("Sinopse......: %s\n", serie.getSinopse());
-            System.out.printf  ("Nascimento: %s\n", serie.getLancamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            System.out.printf  ("Lancamento: %s\n", serie.getLancamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             System.out.println ("----------------------");
         }
     }
