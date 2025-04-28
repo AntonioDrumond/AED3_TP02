@@ -2,7 +2,9 @@ package visao;
 import modelo.*;
 import entidades.*;
 
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class MenuAtores {
     
@@ -26,8 +28,9 @@ public class MenuAtores {
             System.out.println("\n1 - Buscar");
             System.out.println("2 - Incluir");
             System.out.println("3 - Alterar");
-            System.out.println("4 - Excluir um ator");
+            System.out.println("4 - Excluir um ator de uma serie");
             System.out.println("5 - Excluir todos os atores de uma serie");
+            System.out.println("6 - Listar todas as series em que um ator atua");
             System.out.println("0 - Voltar");
 
             System.out.print("\nOpção: ");
@@ -52,6 +55,9 @@ public class MenuAtores {
                     break;
                 case 5:
                     excluirAtoresPorSerie();
+                    break;
+                case 6:
+                    listarSeriesDeAtor();
                     break;
                 case 0:
                     break;
@@ -469,6 +475,64 @@ public class MenuAtores {
         } catch (Exception e) {
             System.out.println("Erro ao excluir atores da serie!");
             e.printStackTrace();
+        }
+    }
+
+    public void listarSeriesDeAtor() {
+
+        System.out.println("\nListagem de series por ator");
+        System.out.print("Digite o nome do ator: ");
+        String nomeAtor = console.nextLine();
+    
+        try {
+
+            // Retrieve all actors with the given name
+            Ator[] atores = arqAtores.readNome(nomeAtor);
+    
+            if (atores == null || atores.length == 0) {
+                System.out.println("Ator nao encontrado.");
+                return;
+            }
+    
+            // Use only the first matching actor
+            Ator ator = atores[0];
+            System.out.println("\nAtor encontrado:");
+            System.out.println("----------------------------");
+            System.out.println("Nome: " + ator.getNomeAtor());
+            System.out.println("Idade: " + ator.getIdadeAtor());
+            System.out.println("Genero: " + (ator.getGenero() ? "Feminino" : "Masculino"));
+    
+             // Use a Set to store unique series IDs
+            Set<Integer> seriesIDs = new HashSet<>();
+
+            // Collect all unique series IDs linked to the actor
+            for (Ator at : atores) {
+                if (at != null) {
+                    seriesIDs.add(at.getIDSerie());
+                }
+            }
+
+            // Retrieve and display the series for each unique ID
+            System.out.println("\nSeries em que o ator trabalha:");
+            for (int idSerie : seriesIDs) {
+                try {
+                    Serie serie = arqSeries.read(idSerie);
+                    if (serie != null) {
+                        System.out.println("- " + serie.getNome());
+                    } else {
+                        System.out.println("- Serie nao encontrada para o IDSerie: " + idSerie);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Erro ao buscar a serie com IDSerie: " + idSerie);
+                    e.printStackTrace();
+                }
+            }
+    
+        } catch (Exception e) {
+
+            System.out.println("Erro ao listar series do ator!");
+            e.printStackTrace();
+
         }
     }
 
