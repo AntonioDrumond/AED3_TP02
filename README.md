@@ -7,224 +7,53 @@
  - Davi Ferreira Puddo
  - Raquel de Parde Motta
 
-## Intrudução
+## Introdução
 
-Neste trabalho prático, o objetivo foi desenvolver um sistema CRUD (Criar, Ler, Atualizar, Excluir)[^1] para gerenciar séries e episódios de plataformas de streaming, como Netflix, Prime, entre outras. Para isso, a estrutura de dados foi organizada com duas entidades principais: Série (que inclui atributos como nome, ano de lançamento, sinopse e plataforma de streaming) e Episódio (com dados como nome, temporada, data de lançamento e duração). O relacionamento entre as séries e episódios foi modelado como um relacionamento de 1:N, ou seja, uma série pode ter vários episódios, enquanto cada episódio pertence a uma única série. O sistema implementa as operações de inclusão, busca, alteração e exclusão para ambas as entidades, utilizando a Tabela Hash Extensível e a Árvore B+ como índices para otimizar o gerenciamento e a consulta dos dados.
+Neste segundo trabalho prático da disciplina, o sistema PUCFlix foi expandido para incorporar o gerenciamento de Atores e, principalmente, para implementar um relacionamento N:N (muitos-para-muitos) entre as entidades Séries e Atores. O objetivo central foi modelar e implementar a capacidade de associar múltiplos atores a múltiplas séries, refletindo cenários reais onde um ator participa de várias produções e uma produção possui um elenco diverso.
 
-O desenvolvimento seguiu o padrão MVC (Modelo, Visão, Controle)[^2], o que garantiu que a lógica de controle das operações de séries e episódios fosse separada da interface com o usuário. A interface inicial foi projetada para permitir que o usuário escolhesse entre diferentes opções de gerenciamento, como séries e episódios. A visão de cada entidade foi estruturada para apresentar os dados de forma clara, facilitando a consulta e a manipulação dos registros. Além disso, foi implementada uma verificação que impede a exclusão de uma série, ou a alteração de seu nome, caso haja episódios vinculados a ela, assegurando a integridade referencial dos dados. 
+Para gerenciar essa relação bidirecional de forma eficiente, foram utilizadas duas Árvores B+ como estruturas de índice. Uma árvore organiza os dados pelo par (idSerie, idAtor), permitindo consultas rápidas sobre quais atores participam de uma determinada série. A segunda árvore organiza pelo par (idAtor, idSerie), possibilitando a consulta inversa: em quais séries um determinado ator trabalhou. Além da implementação do relacionamento, foi desenvolvido o CRUD completo (Criar, Ler, Atualizar, Excluir) para a entidade Ator, que armazena pelo menos um ID único e o nome do ator.
+
+A integração dessa nova funcionalidade seguiu o padrão MVC (Modelo, Visão, Controle), mantendo a separação de responsabilidades. A interface do usuário foi atualizada para incluir um menu dedicado aos Atores e funcionalidades dentro do menu de Séries para vincular e desvincular atores. Foram implementadas regras de consistência para garantir a integridade referencial, como impedir a exclusão de um ator que esteja vinculado a alguma série e remover automaticamente os vínculos ator-série quando uma série é excluída.
 
 ## Experiência
 
-Foi nosso primeiro contato com a manipulação de um programa tão grande, composto de várias classes, que vão de mais genéricas a mais específicas. Apesar de a quantidade de arquivos de código ter nos assustado no início, ao longo do desenvolvimento ficou evidente porque encapsular funcionalidades, planejar interfaces, criar classes genéricas e utilizar cláusulas de "extends" e "includes" são consideradas boas práticas de programação. O grupo também percebeu as vantagens da orientação a objetos em Java para produção em escala comparado a linguagens puramente procedimentais, onde o foco é apenas em funções, como C.
+Este trabalho consolidou e expandiu a experiência adquirida no TP1. Tendo já estabelecido a base do sistema com o relacionamento 1:N e as estruturas de dados iniciais (Tabela Hash e Árvore B+), o foco agora foi na complexidade adicional do relacionamento N:N. A necessidade de gerenciar duas estruturas de índice (as duas Árvores B+) para o mesmo relacionamento foi um aprendizado prático importante sobre como garantir consultas eficientes em ambas as direções (Série -> Atores e Ator -> Séries).
 
-Foi extremamente produtivo poder reutilizar várias funcionalidades de classes genéricas para entidades específicas. A separação de "níveis" de funcionalidade também permitiu debugar com mais facilidade, pois apenas algumas classes tinham acesso ao arquivo, enquanto apenas algumas outras lidavam com input do usuário, enquanto outras só guardavam as informações e funções mais relevantes para uma entidade, etc. Ademais, os códigos do Menu e Principal ficaram bem mais sucintos ao utilizar recursos de diversas classes pré-elaboradas. Outro ponto é que quando precisávamos "dar uma olhada" rapidamente no que uma classe fazia em sua essência, sempre recorríamos às interfaces. 
+A reutilização de código e a aplicação dos princípios de Orientação a Objetos e do padrão MVC continuaram a ser vantajosas, especialmente ao integrar a nova entidade Ator e suas funcionalidades (CRUD, visualização, controle) ao sistema existente. Foi interessante perceber como a arquitetura planejada no TP1 facilitou a adição desses novos componentes. A manipulação simultânea das duas Árvores B+ para manter a consistência dos vínculos durante as operações de inclusão (de vínculo), exclusão de série e exclusão de ator (com verificação) reforçou a importância de um design cuidadoso das operações de atualização de dados.
 
-Um quesito interessante é que o desenvolvimento deste programa complementou muito bem o conteúdo que estamos vendo na disciplina "Banco de Dados". Enquanto em BD trabalhamos com SQL, uma linguagem de consulta de alto nível, em AED3 pudemos ver "o que há por baixo", isto é, todo o trabalho interno feito para um CRUD ser bem sucedido. Ademais, todos os integrantes acreditam que o trabalho prático concretizou com muita clareza a teoria que vimos em sala.
+A separação clara entre Modelo, Visão e Controle novamente facilitou o desenvolvimento e a depuração, permitindo que o grupo trabalhasse em partes distintas do sistema com menos conflitos. A experiência prática com Árvores B+ foi aprofundada, agora utilizando-as especificamente para gerenciar relações complexas, o que proporcionou uma visão mais concreta de sua aplicabilidade além da indexação primária.
 
-### Desafios
+## Desafios
 
-Como mencionado anteriormente, o primeiro desafio foi o choque inicial com a quantidade de classes e linhas de código, mas que foi rapidamente superado. Ademais, por ser nossa primeira vez utilizando algorimos de Tabela Hash Extensível[^3] e Árvore B+ [^4], tivemos alguns problemas entendendo e lidando com seus métodos, além de dificuldades na manipulação dos dados dentro/por meio dessas estruturas. Especialmente na Árvore B+, cuja explicação ainda não vimos em sala, o armazenamento de índices ainda é um pouco "misterioso" para nós. 
+O principal desafio técnico deste trabalho foi a correta implementação e gerenciamento do relacionamento N:N utilizando duas Árvores B+. Garantir que ambas as árvores fossem atualizadas atomicamente (ou pelo menos consistentemente) em todas as operações de vínculo e desvínculo foi complexo. Por exemplo, ao associar um ator a uma série, era necessário inserir o par (idSerie, idAtor) na primeira árvore e o par (idAtor, idSerie) na segunda. Da mesma forma, a exclusão de uma série exigia a remoção de todas as entradas correspondentes em ambas as árvores.
 
-Além disso, instruções de update foram um desafio para implementação e funcionamento, já que tivemos dúvidas a respeito de como funcionaria a alteração de nomes de séries sem prejudicar a integridade referencial, pois depreendemos que o relacionamento série-episódio fosse obrigatório para o lado do episódio. Para resolver essa questão, impedimos que uma série fosse deletada ou tivesse seu nome alterado se existissem episódios linkados a ela. Para maior praticidade do usuário, adicionamos então a funcionalidade no menu "Episódios" de excluir de uma só vez todos os episódios de uma determinada série.
+Outro desafio foi a implementação das regras de integridade referencial de forma eficiente. A verificação que impede a exclusão de um ator caso ele esteja vinculado a alguma série exigiu uma consulta em uma das Árvores B+ ((idAtor, idSerie)) antes de permitir a operação de exclusão do ator. Implementar essa lógica de forma integrada ao fluxo do CRUD de Atores exigiu atenção aos detalhes.
 
-Durante a testagem, também decidimos impedir o cadastro de séries de nomes iguais, porém não de episódios de nomes iguais. Se, ao buscar um nome de episódio, existir mais de um episódio com o mesmo nome, são listados todos os resultados correspondentes - no momento em que o usuário quer editar ou deletar, são mostradas as descrições de todos os episódios recuperados com o nome fornecido e é possível escolher a qual opção ele se refere.
+A integração da funcionalidade de vinculação de atores dentro do fluxo de gerenciamento de Séries também apresentou desafios de design de interface e lógica de controle. Decidir a melhor forma de apresentar e coletar a informação sobre o elenco (se durante a criação/edição da série ou em uma opção separada) envolveu considerações sobre usabilidade e complexidade de implementação. Depurar problemas que envolviam a sincronia entre as duas árvores e os dados principais das Séries e Atores também consumiu tempo, exigindo testes cuidadosos para cada cenário de CRUD e vinculação.
 
-### Resultados
+## Resultados
 
-Com grande esforço, conseguimos realizar tudo que o problema pedia. Criamos, portanto, uma interface semelhante "streaming-like" onde temos os dados e metadados das séries e episódios cadastrados. Toda nova entidade cadastrada é passível de ser buscada, atualizada e excluída com facilidade. Adicionamos também funcionalidades para listar todos os episódios de uma série, listar todas as séries cadastradas e excluir todos os episódios de uma série. Por demais, lidadmos confrontos que poderiam dar problemas futuros na interação usuário-método, como por exemplo, nomes de episódios repetidos.
+Conseguimos implementar com sucesso todas as funcionalidades requeridas para este trabalho prático. O sistema PUCFlix agora gerencia não apenas Séries e Episódios, mas também Atores, e implementa corretamente o relacionamento N:N entre Séries e Atores. As principais funcionalidades entregues incluem:
 
-## Código
+    CRUD completo para Atores: É possível incluir, buscar, alterar e excluir atores, respeitando as regras de negócio.
+    Relacionamento N:N com Duas Árvores B+: O vínculo entre séries e atores é gerenciado por duas Árvores B+, garantindo consultas eficientes em ambas as direções.
+    Vinculação Série-Ator: Implementamos a funcionalidade que permite associar atores existentes a uma série (integrada ao menu de Séries).
+    Consultas Bidirecionais: O sistema permite visualizar facilmente todos os atores de uma determinada série e todas as séries nas quais um determinado ator participou.
+    Consistência de Dados: As regras de integridade referencial foram implementadas:
+        A exclusão de um ator só é permitida se ele não estiver vinculado a nenhuma série.
+        A exclusão de uma série remove automaticamente todos os seus vínculos com atores nas duas Árvores B+.
 
-### Classes 
-
-#### Entidades
-
-##### Episodio.java
-
-A classe Episodio representa um episódio de uma série de TV, com atributos como ID único, ID da série, nome, número da temporada, data de lançamento (lancamento) e duração em minutos. Ela implementa a interface Registro, que provavelmente define métodos para serialização e desserialização. A classe inclui métodos como fromByteArray, que reconstrói um objeto Episodio a partir de um array de bytes, lendo seus atributos com um DataInputStream. Esse método garante que os dados sejam lidos na ordem correta, convertendo-os de volta para os tipos apropriados, como inteiros, strings e LocalDate. Isso é útil para armazenar e recuperar objetos Episodio em formatos binários, adequados para sistemas de armazenamento como banco de dados ou arquivos.
-
-##### Serie.java
-
-A classe Serie representa uma série de TV e implementa a interface Registro, que provavelmente define métodos para gerenciar registros. Ela possui atributos como ID único, nome, data de lançamento (lancamento), sinopse e nome da plataforma de streaming (streaming). A classe oferece dois construtores: um que inicializa todos os atributos, incluindo o ID, e outro que não inclui o ID, útil para criar novas instâncias onde o ID é atribuído posteriormente. Esse design torna a classe Serie adequada para aplicações que gerenciam informações sobre séries de TV, como bancos de dados ou catálogos de serviços de streaming.
-
-#### Modelo
-
-##### ArquivoEpisodios.java
-
-A classe ArquivoEpisodios estende Arquivo<Episodio> e gerencia o armazenamento e indexação de objetos Episodio. Ela utiliza duas árvores B+ (ArvoreBMais) para indexação: uma para mapear nomes de episódios aos seus IDs (indiceNome) e outra para relacionar os IDs das séries aos IDs dos episódios (indiceRelacaoSerieEp). O construtor inicializa a estrutura de arquivos para armazenar os episódios, garantindo a existência das pastas necessárias, e configura os índices B+ com classes específicas (ParNomeId e ParIdId) e caminhos para os bancos de dados dos índices.
-
-##### ArquivoSeries.java
-
-A classe ArquivoSeries estende Arquivo<Serie> e gerencia o armazenamento e indexação de objetos Serie. Ela cria a estrutura de diretórios (./dados/serie) para armazenar os dados das séries e usa uma árvore B+ (indiceNome) para mapear nomes de séries aos seus IDs, permitindo buscas eficientes. O construtor configura a estrutura de arquivos e o índice B+, com grau 5, armazenando-o em ./dados/serie/indiceNome.db.
-
-##### ParNomeId.java
-A classe ParNomeId representa um par composto por uma String (nome) e um int (ID), projetada para ser armazenada em uma árvore B+ como um índice indireto para entidades como títulos. Ela implementa a interface RegistroArvoreBMais, que provavelmente define métodos para serialização, desserialização e comparação necessários para operações na árvore B+. A classe inclui utilitários para normalização de strings e codificação, garantindo compatibilidade e armazenamento eficiente na estrutura da árvore B+.
-
-#### Registro
-
-##### Arquivo.java
-
-A classe Arquivo é genérica e gerencia o armazenamento de arquivos para entidades que implementam a interface Registro. Ela cria diretórios (./dados/<nome_da_entidade>) e um arquivo de banco de dados (<nome_da_entidade>.db) para armazenar registros serializados, usando RandomAccessFile para acesso direto. A classe utiliza um índice extensível baseado em hash (HashExtensivel<ParIDEndereco>) para indexar registros de forma eficiente.
-
-##### ArvoreBMaisjava
-
-A classe ArvoreBMais implementa uma estrutura de dados de árvore B+, projetada para armazenar e gerenciar pares de chaves, onde a primeira chave pode se repetir, mas a combinação das chaves deve ser única. Ela usa um tipo genérico T que estende a interface RegistroArvoreBMais, permitindo lidar com objetos personalizados enquanto garante a implementação dos métodos necessários para operações na árvore. A classe gerencia a estrutura da árvore e sua persistência usando RandomAccessFile, garantindo armazenamento e recuperação eficientes de dados diretamente de um arquivo.
-
-##### HashExtensivel.java
-
-A classe HashExtensivel implementa um mecanismo de hashing extensível para gerenciar o armazenamento de dados de forma eficiente, suportando operações como criação, leitura, atualização e exclusão baseadas em códigos de hash. Ela utiliza um arquivo de diretório (nomeArquivoDiretorio) e arquivos de cestos (nomeArquivoCestos) para gerenciar dinamicamente os dados, garantindo escalabilidade à medida que o conjunto de dados cresce. A classe é genérica, exigindo que o tipo T estenda a interface RegistroHashExtensivel, que assegura que os objetos armazenados implementem métodos de serialização e desserialização.
-
-##### ParIDEndereco.java
-
-A classe ParIDEndereco representa um par composto por um ID inteiro (chave) e um endereço longo (valor), projetado para ser usado em estruturas de hashing extensível. Ela implementa a interface RegistroHashExtensivel, fornecendo métodos para serialização, desserialização e gerenciamento de registros de tamanho fixo de 12 bytes.
-
-##### ParIdId.java
-
-A classe ParIdId representa um par de IDs inteiros (id1 e id2) e fornece métodos para comparação, serialização (toByteArray) e desserialização (fromByteArray). Ela implementa lógica para ordenação e busca, onde id1 é a chave primária e id2 é comparado condicionalmente para suportar buscas baseadas em listas.
-
-##### Registro.java
-
-A interface Registro define métodos para definir e obter um ID, além de métodos para serializar e desserializar objetos de e para arrays de bytes.
-
-##### RegistroArvoreBMais.java
-
-A interface RegistroArvoreBMais define métodos para registros de tamanho fixo, incluindo serialização, desserialização, comparação e clonagem, para suportar operações em uma estrutura de árvore B+.
-
-##### RegistroHashExtensivel.java
-
-The RegistroHashExtensivel interface defines methods for objects to be stored in an extensible hash table, including generating a hash code, determining fixed size, and handling serialization and deserialization.
-
-#### Visao
-
-##### MenuEpisodios.java
-
-A classe MenuEpisodios fornece uma interface de usuário para gerenciar episódios, permitindo que os usuários realizem operações como buscar, adicionar, atualizar e excluir episódios. Ela inicializa instâncias de ArquivoEpisodios e ArquivoSeries para gerenciar o armazenamento e a recuperação dos dados de episódios e séries. O método menu exibe um menu baseado em texto com opções para o gerenciamento de episódios e processa a entrada do usuário para executar as ações correspondentes. A classe inclui tratamento de erros para entradas inválidas usando um bloco try-catch, garantindo que o programa continue funcionando sem problemas.
-
-##### MenuSeries.java
-
-A classe MenuSeries fornece uma interface de usuário para gerenciar séries de TV, permitindo que os usuários realizem operações como buscar, adicionar, atualizar e excluir séries. Ela inicializa instâncias de ArquivoSeries e ArquivoEpisodios para gerenciar o armazenamento e a recuperação dos dados de séries e episódios, garantindo a consistência dos dados. O método menu exibe um menu baseado em texto com opções para o gerenciamento de séries e processa a entrada do usuário para executar as ações correspondentes. A classe inclui uma funcionalidade para verificar se há episódios associados antes de excluir uma série, evitando inconsistências nos dados. Ela utiliza um objeto estático Scanner para ler a entrada do usuário no console para operações interativas.
-
-#### Principal.java
-
-A classe Principal serve como o ponto de entrada principal da aplicação, oferecendo uma interface baseada em menu para navegar entre as funcionalidades do MenuSeries e MenuEpisodios. Ela utiliza um loop para continuamente solicitar a entrada do usuário, tratando opções inválidas de forma adequada e permitindo que o programa seja encerrado quando o usuário selecionar a opção 0.
-
-### Métodos gerais
-
-#### ArquivoSeries.java
-
-##### Create ( Serie s )
-
-Adiciona um novo objeto `Serie` ao armazenamento e atualiza o índice baseado no nome.
-
-##### readNome ( String nome )
-
-Recupera todos os objetos `Serie` que correspondem a um nome específico.
-
-#### ArquivoEpisodios.java
-
-##### Construtor
-
-Inicializa a classe `ArquivoEpisodios` configurando a estrutura de diretórios e os índices da árvore B+ para gerenciar episódios.
-
-##### Create ( Episodio ep )
-
-Adiciona um novo objeto `Episodio` ao armazenamento e atualiza os índices para nome e relações série-episódio.
-
-##### readNome ( String nome )
-
-Recupera todos os objetos `Episodio` que correspondem a um nome específico.
-
-#### Arquivo.java
-
-##### create ( T obj )
-
-Adiciona um novo registro do tipo T ao arquivo.
-
-##### read ( int id )
-
-Recupera um registro pelo seu ID único.
-
-##### update ( T obj )
-
-Atualiza um registro existente no arquivo.
-
-##### delete ( int id )
-
-Exclui um registro marcando seu espaço como livre.
-
-##### searchFreeSpace(int tamanhoNecessario)
-
-Procura na lista de espaço livre um bloco grande o suficiente para armazenar um registro do tamanho necessário.
-
-##### toByteArray() e fromByteArray(byte[] array)
-
-Lida com a serialização e desserialização de objetos do tipo T.
-
-##### seek(long endereco)
-
-Move o ponteiro do arquivo para um endereço específico no arquivo.
-
-##### listAll()
-
-Lista todos os registros no arquivo.
-
-#### MenuEpisodios.java
-
-##### MenuEpisodios()
-
-Inicializa a classe `MenuEpisodios` configurando as estruturas de arquivos necessárias para gerenciar episódios e séries.
-
-##### menu()
-
-Exibe um menu para gerenciar episódios e processa a entrada do usuário para executar as ações correspondentes.
-
-##### buscarEpisodio()
-
-Busca por um episódio com base nos critérios fornecidos pelo usuário.
-
-##### incluirEpisodio()
-
-Adiciona um novo episódio ao sistema.
-
-##### alterarEpisodio()
-
-Atualiza os detalhes de um episódio existente.
-
-##### excluirEpisodio()
-
-Exclui um episódio do sistema.
-
-#### MenuSeries()
-
-##### MenuSeries()
-
-Inicializa a classe `MenuSeries` configurando as estruturas de arquivos necessárias para gerenciar séries e episódios.
-
-##### menu()
-
-Exibe um menu para gerenciar séries e processa a entrada do usuário para executar as ações correspondentes.
-
-### Operações
-
-Todas as operações foram implementadas, sendo a mais desafiadora a UPDATE, já que envolve a alteração de índices indiretos e por utilizar diferentes métodos de criação e de remoção de registros para que o método em si funcione.
+O resultado é um sistema mais robusto e completo, que modela de forma mais realista as relações encontradas em plataformas de streaming. A implementação prática do relacionamento N:N e o aprofundamento no uso de Árvores B+ foram os principais ganhos técnicos e de aprendizado deste trabalho. O sistema está funcional e atende aos requisitos especificados.
 
 ## Checklist
 
-- [x] As operações de inclusão, busca, alteração e exclusão de séries estão implementadas e funcionando corretamente? **SIM**
-- [x] As operações de inclusão, busca, alteração e exclusão de episódios, por série, estão implementadas e funcionando corretamente? **SIM**
-- [x] Essas operações usam a classe CRUD genérica para a construção do arquivo e as classes Tabela Hash Extensível e Árvore B+ como índices diretos e indiretos? **SIM**
-- [x] O atributo de ID de série, como chave estrangeira, foi criado na classe de episódios? **SIM**
-- [x] Há uma árvore B+ que registre o relacionamento 1:N entre episódios e séries? **SIM**
-- [x] Há uma visualização das séries que mostre os episódios por temporada? **SIM**
-- [x] A remoção de séries checa se há algum episódio vinculado a ela? **SIM**
-- [x] A inclusão da série em um episódio se limita às séries existentes? **SIM**
+- [x] As operações de inclusão, busca, alteração e exclusão de atores estão implementadas e funcionando corretamente? **SIM**
+- [x] O relacionamento entre séries e atores foi implementado com árvores B+ e funciona corretamente, assegurando a consistência entre as duas entidades? **SIM**
+- [x] EÉ possível consultar quais são os atores de uma série? **SIM**
+- [x] É posssível consultar quais são as séries de um ator? **SIM**
+- [x] A remoção de séries remove os seus vínculos de atores? **SIM**
+- [x] A inclusão de um ator em uma série em um episódio se limita aos atores existentes? **SIM**
+- [x] A remoção de um ator checa se há alguma série vinculado a ele? **SIM**
 - [x] O trabalho está funcionando corretamente? **SIM**
 - [x] O trabalho está completo? **SIM**
 - [x] O trabalho é original e não a cópia de um trabalho de outro grupo? **SIM**
-
-
-[^1]: https://www.codecademy.com/article/what-is-crud
-[^2]: https://www.devmedia.com.br/introducao-ao-padrao-mvc/29308
-[^3]: https://www.ic.unicamp.br/~thelma/gradu/MC326/2010/Slides/Aula09a-hash-Extensivel.pdf
-[^4]: https://marciobueno.com/arquivos/ensino/ed2/ED2_04_Arvore_B+.pdf
-
