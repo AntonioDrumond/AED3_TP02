@@ -28,7 +28,7 @@ public class ArquivoAtores extends Arquivo<Ator> {
     indiceNome = new ArvoreBMais<>(
     ParNomeId.class.getConstructor(), 5, "./dados/ator" + "/indiceNome.db");
 
-    indiceRelacaoSerieEp = new ArvoreBMais<>(
+    indiceRelacaoSerieAtor = new ArvoreBMais<>(
     ParIdId.class.getConstructor(), 5, "./dados/ator" + "/indiceRelacaoSerieAtor.db");
 
   }

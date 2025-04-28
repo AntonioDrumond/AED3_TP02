@@ -19,7 +19,7 @@ public class Principal
 		{   
             arqSeries = new Arquivo<>("series", Serie.class.getConstructor());
             arqEpisodios = new Arquivo<>("episodios", Episodio.class.getConstructor());
-            arqAtores = new Arquivo<>("atores", Atores.class.getConstructor());
+            arqAtores = new Arquivo<>("atores", Ator.class.getConstructor());
 
             sc = new Scanner(System.in);
             int opcao;
