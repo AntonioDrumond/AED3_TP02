@@ -34,7 +34,7 @@ Outro desafio foi a implementação das regras de integridade referencial de for
 
 ## Testes e validação
 
-Durante o desenvolvimento, realizamos testes manuais e automatizados para garantir a integridade das operações e a consistência dos dados. Foram simulados diferentes cenários de uso, como tentativa de exclusão de atores vinculados, vinculações duplicadas e remoção de séries com múltiplos atores associados. Esses testes ajudaram a validar a robustez das Árvores B+ e das regras de negócio implementadas.
+Durante o desenvolvimento, realizamos testes manuais e automatizados para garantir a integridade das operações e a consistência dos dados. Foram simulados diferentes cenários de uso, como tentativa de exclusão de atores vinculados, vinculações duplicadas e remoção de séries com múltiplos atores associados. 
 
 ## Resultados
 
